@@ -7,7 +7,7 @@ https://www.acmicpc.net/problem/1000
 
 **입력받는다고 하였으므로 Scanner 를 사용
 
-import.util.Scanner;
+import java.util.Scanner;
 
 public class Main{
   public static void main(String[] args){
