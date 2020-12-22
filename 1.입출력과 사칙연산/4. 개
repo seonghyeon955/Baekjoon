@@ -1,0 +1,23 @@
+https://www.acmicpc.net/problem/10172
+아래 예제와 같이 개를 출력하시오.
+|\_/|
+|q p|   /}
+( 0 )"""\
+|"^"`    |
+||_/=\\__|
+
+답:
+
+pubblic class Main{
+  public static void main(String[] args){
+    System.out.println("|\\_/|");
+		System.out.println("|q p|   /}");
+		System.out.println("( 0 )\"\"\"\\");
+		System.out.println("|\"^\"`    |");
+		System.out.println("||_/=\\\\__|");
+  }
+}
+
+*** 역슬래쉬와 마찬가지로 "" 도 앞에 역슬래시가 하나씩 더 붙어야 출력 가능
+|| 역슬래쉬 두개 출력하려면 |||| 처럼 역슬래쉬 네개
+" 출력하려면 |" 처럼 앞에 역슬래쉬.
