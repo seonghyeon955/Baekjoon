@@ -1,0 +1,27 @@
+https://www.acmicpc.net/problem/10950
+두 정수 A와 B를 입력받은 다음, A+B를 출력하는 프로그램을 작성하시오.
+입력 )첫째 줄에 테스트 케이스의 개수 T가 주어진다.
+      각 테스트 케이스는 한 줄로 이루어져 있으며, 각 줄에 A와 B가 주어진다. (0 < A, B < 10)
+출력) 각 테스트 케이스마다 A+B를 출력한다.
+
+답 : 
+
+import java.util.Scanner;
+
+public class Main{
+    public static void main(String[] args){
+        Scanner in= new Scanner(System.in);
+        int t = in.nextInt(); //주어진 테스트 갯수
+        int arr[] = new int[t]; // 테스트 갯수의 크기를 가진 배열 생성
+        
+        for(int i=0; i<t; i++){
+            int A = in.nextInt();
+            int B = in.nextInt();
+            arr[i] = A+B; // 각 배열의 인덱스 마다 A+B의 값을 넣어줌
+        }
+        in.close();
+        for(int k : arr){ //배열의 내용을 int k에 담음
+            System.out.println(k); // k츨력
+        }
+    }
+}
