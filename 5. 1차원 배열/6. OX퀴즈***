@@ -1,0 +1,56 @@
+https://www.acmicpc.net/problem/8958
+"OOXXOXXOOO"와 같은 OX퀴즈의 결과가 있다. O는 문제를 맞은 것이고, X는 문제를 틀린 것이다. 문제를 맞은 경우 그 문제의 점수는 그 문제까지 연속된 O의 개수가 된다. 
+예를 들어, 10번 문제의 점수는 3이 된다.
+
+"OOXXOXXOOO"의 점수는 1+2+0+0+1+0+0+1+2+3 = 10점이다.
+
+OX퀴즈의 결과가 주어졌을 때, 점수를 구하는 프로그램을 작성하시오.
+
+입력) 첫째 줄에 테스트 케이스의 개수가 주어진다. 각 테스트 케이스는 한 줄로 이루어져 있고, 길이가 0보다 크고 80보다 작은 문자열이 주어진다. 문자열은 O와 X만으로 이루어져 있다.
+      예) 5
+          OOXXOXXOOO
+          OOXXOOXXOO
+          OXOXOXOXOXOXOX
+          OOOOOOOOOO
+          OOOOXOOOOXOOOOX
+출력) 각 테스트 케이스마다 점수를 출력한다.
+      예) 10
+           9
+           7
+           55
+           30
+           
+답:
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+
+public class Main{
+  public static void main(String[] args) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    StringBuilder sb = new StringBuilder();
+    int test_case = Integer.parseInt(br.readLine()); //테스트갯수
+    String arr[] = new String[test_case]; //테스트 갯수와 동일한 갯수의 배열
+    
+    for(int i=0; i<test_case; i++){
+      arr[i] = br.readLine(); //한줄씩 테스트케이스를 읽어들임.
+    }
+    
+    for(int i=0; i<test_case; i++){ //전체 한줄 한줄
+      int cnt = 0; //반복되는 횟수
+      int sum = 0; //총 합
+      for(int j=0; j<arr[i].length; i++){//  한 줄 안에서 한개씩 한개씩 O인지 X인지 거르기
+        if(arr[i] == 'O'){
+          count++;
+        }else{
+          count=0;
+        }
+        sum += count;
+      }
+      sb.append(sum).append('|n'); //한줄씩 각 줄의 0의 갯수에 따른 총 합 sb에 저장
+    }
+    System.out.println(sb);
+  }
+}
