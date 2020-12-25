@@ -39,7 +39,36 @@ n을 d(n)의 생성자라고 한다. 위의 수열에서 33은 39의 생성자�
 9982
 9993
 
-답: 
+답:
+
+public class Main{
+    public static void main(String[] args) {//실행
+        boolean check[] = new boolean[10001]; //1~10000이므로
+        for(int i=0; i<10001; i++){
+            int n = d(i);
+            if(n<10001){ // 10000이 넘는 수는 필요없음
+                check[n] = true;
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for(int i=1; i<10001; i++){
+            if(!check[i]){ //false인 인덱스만 출력함
+                sb.append(i).append('\n');
+            }
+        }
+        System.out.println(sb);
+    }
+    public static int d(int number){//함수
+        int sum = number; //number을 생성자로 하는 수를 리턴시키기 위해 sum변수 생성, 초기값 number
+        while(number != 0){ //ex: number=1234일때,
+            sum = sum + (number%10); //첫째자리수 -> sum = 1234 + (1234%10=4) 식으로 첫째자리수를 더함
+            number = number/10; //10을 나눠 첫째자리를 없앤다 -> number=123 (반복)
+        }
+        return sum;
+        
+    }
+    
+}
 
 
 
