@@ -100,5 +100,33 @@ N개의 수가 주어졌을 때, 이를 오름차순으로 정렬하는 프로�
 
 풀이)
 
+import java.util.*;
+import java.io.*;
 
+class Main{
+    public static void main(String[]args){
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb= new StirngBuilder();
+        int cnt = Integer.parseInt(br.readLine()); //갯수
+        int arr[] = new int[cnt];
+        
+        for(int i=0; i<cnt; i++){
+            arr[i] = Integer.parseInt(br.readLine);
+        }//for문으로 빈 배열안에 숫자 넣기
+        
+        for(int i=0; i<cnt-1; i++){
+            for(int k=i+1 ; k<cnt; k++){// i의 바로 옆 수랑 비교하므로
+                if(arr[i] > arr[k]){//배열에서 앞수가 뒷수보다 더 큰 경우
+                    int temp = arr[i];
+                    arr[i] = arr[k];
+                    arr[k] = temp;
+                }
+            }
+        }
+        for(int value : arr ){
+            sb.append(value).append('\n');
+        }
+        System.out.println(sb);
+    }
+}
 
