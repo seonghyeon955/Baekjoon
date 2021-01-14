@@ -154,3 +154,37 @@ N개의 수가 주어졌을 때, 이를 오름차순으로 정렬하는 프로�
 3
 4
 5
+
+
+풀이)
+
+
+import java.util.*;
+import java.io.*;
+
+class Main{
+    public static void main(String[]args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb= new StringBuilder();
+        int cnt = Integer.parseInt(br.readLine());
+        ArrayList<Integer>list = new ArrayList<>();
+        
+        for(int i=0; i<cnt; i++){
+            list.add( Integer.parseInt(br.readLine()) );
+        }
+        
+        Collections.sort(list);
+        
+        for(int value : list){
+            sb.append(value).append('\n');
+        }
+        System.out.println(sb);
+    }
+}
+
+**Collections.sort() : Timesort로, 반복합병 및 삽입정렬 알고리즘을 사용함. 이렇게 두가지가 섞인 정렬알고리즘은
+hybrid stable sorting algotirhm이라고 하며, 
+합병정렬일 경우 최선,최악 모두 O(nlogn)을 보장, 삽입정렬일 경우 최선은 O(n), 최악은 O(n2)임.
+-> 합병정렬 최악의 경우 + 삽입정렬의 최선의 경우를 짬뽕한 알고리즘
+파이썬이나 기타 정렬 알고리즘에서 가장 많이 쓰임
+시간복잡도 O(n)~ O(nlogn)을 보장.
