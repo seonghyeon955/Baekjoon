@@ -1,0 +1,64 @@
+클래스 정의방식은 '속도'가 느려 실무에 적합한 방식.
+프로그래밍 대회와 같이 빠른 개발이 필요할 경우 페어(Pair)라이브러리 사용이 효율적이다.
+
+ex)
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int main(void){
+  vector<pair<int,String> > v; //Pair : 한쌍의 데이터를 사용할 수 있게 해주는 라이브러리
+  v.push_back(pair<int,String>(90,"박한울")); //push_back() : 리스트의 마지막 부분에 삽입하다.
+  v.push_back(pair<int,String>(85,"이태일"));
+  v.push_back(pair<int,String>(82,"나동빈"));
+  v.push_back(pair<int,String>(98,"강종구"));
+  v.push_back(pair<int,String>(79,"이상욱"));
+  
+  sort(v.begin(), v.end()); //벡터 첫째값~ 마지막값 정렬
+  for(int i=0; i<v.size(); i++){
+    cout << v[i].second << ' ';
+    //pair은 선언 후 first,second,third..식으로 선언. 여기선 이름을 정렬하므로 (first:성적, second:이름) second를 사용한다.
+  }
+    return 0;
+
+
+--> 벡터와 페어 라이브러리를 이용한 숏코딩.
+//벡터(vector) : 배열과 같이 작동하는데 선택적으로 삽입(push) 및 삭제(drop) 가능. 
+배열을 보다 이용하기 쉽게 개편한 자료구조!
+
+
+변수가 3개일때 2개의 변수를 기준으로 정렬하기
+Q) 학생을 나타낼 수 있는 정보가 이름,성적,생년월일 일때 학생을 성적순으로 나열하고자 한다. 다만 성적이 동일할 경우 나이가 더 어린 학생이 우선 순위가 높다.
+-> 이중 pair사용하기. pair<String, pair<int,int> > = pair<이름, pair<성적,생년월일> >
+using namespace std;
+
+bool compare
+  (pair<String, pair<int,int> > a, pair<String, pair<int,int> > b){
+  if(a.second.first == b.second.first){ //성적이 같을때
+    return a.second.second > b.second.second; //생년월일이 더 느린= 더 어린 = 학생이 높은 우선순위를 가짐
+  }else{//성적이 다를때
+    return a.second.first > b.second.first; //성적이 더 좋은 학생이 높은 우선순위를 가져감.
+  }
+}
+
+int main(void){
+  vector<pair<String, pair<int,int> >> v;
+  v.push_back(pair<String, pair<int,int>>("박한울",pair<int,int>(90,980324)));
+  v.push_back(pair<String, pair<int,int>>("이태일",pair<int,int>(80,970814)));
+  v.push_back(pair<String, pair<int,int>>("나동빈",pair<int,int>(56,961222)));
+  v.push_back(pair<String, pair<int,int>>("강종구",pair<int,int>(68,980914)));
+  v.push_back(pair<String, pair<int,int>>("이상욱",pair<int,int>(70,900530)));
+  
+  sort(v.begin(), v.end(), compare);
+  for(int i=0; i<v.size(); i++){
+    cout << v[i].second << '  '; //학생의 이름을 기준으로 정렬하므로.
+   }
+}
+}
+
+
+*** 정렬기준 2개까지는 pair의 사용을 추천하나, 3개를 넘어갈경우 따로 클래스를 정의하는 편이 효과적이다.
+
