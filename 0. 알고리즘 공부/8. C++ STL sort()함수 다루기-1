@@ -1,0 +1,88 @@
+Sort() 함수의 기본 사용법
+
+들어가기 앞서
+- 입출력 : C언어 문법 사용
+- 라이브러리(벡터, sort...) : C++문법 사용 -> 다양한 STR라이브러리를 사용하기 떄문
+
+
+ex) C++예제
+
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+int main(void){
+  ina [10] = {9,3,5,4,1,10,8,6,7,2};
+  sort(a, a+10);
+       1.   2.
+       
+   1. 배열 자체는 메모리구조를 의미하는 하나의 변수.
+   2. 정렬할 마지막 원소가 있는 메모리 주소 -> 이경우 가장 마지막 주소인 '2'를 가리키는 주소가 a+10에 들어간다. '배열변수명 + 정렬할 데이터갯수'로 표현
+   
+  for(int i=0; i<10; i++){
+    cour << a[i] << '';
+  } 
+
+}
+
+ex2)
+
+정렬할 기준을 '직접 설정'해주기.
+1. '배열을 어떠한 기준으로 정렬을 하겠다'
+2. 직접 함수로 정의
+3. 함수를 Sort()함수 안에 매개변수로 넣음
+4. 정렬을 우리가 의도한대로 작동.
+
+
+bool compare(int a, int b){
+  return a<b; // -> a가 b보다 작을때 우선적으로 정렬(오름차순 정렬), a>b인 상태이여야 true값 반환.
+                   *****a>b로 변경시 내림차순 정렬로 변화
+}
+
+
+int main(void){
+  int a[10] = {9,3,5,4,1,10,8,6,7,2};
+  sort(a, a+10, compare); //sort()세번째 인자값으로 넣으면 해당 함수의 반환값에 맞게 동작한다.
+  for(int i=0; i<10; i++){
+    cout<<a[i]<<' ';
+  }
+}
+
+
+
+
+ex3)
+(객체로 묶인) 데이터를 묶어서 정렬하는 방법 -> '특별한 변수를 기준으로' 정렬
+
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+class Student{//학생을 점수별로 정렬.
+  public;
+  String name;
+  int score;
+  Student(String name, int score){ //생성자(초기화)
+    this -> name = name;
+    this -> score = score;
+  }
+  bool operator < (Student&student) {
+    return this-> score < student.score;
+  }//점수가 낮은 순대로 출력 : 다른학생과 비교하여 내 점수가 낮다 = 우선 순위가 높다
+};
+
+bool compare(int a, int b){
+  return a>b;
+}
+
+int main(void){
+  Student students[] = {
+    Student("A", 90);
+    Student("B", 80);
+    Student("C", 70);
+  }; 
+  sort(student, student+3); //학생 클래스안에서 정렬을 미리 해주었으므로, 2개의 인자값만 필요
+  for(int i=0; i<3; i++){
+    cout << students[i].name<< ' ';
+  }
+}
