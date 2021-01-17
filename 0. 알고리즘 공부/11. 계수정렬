@@ -1,0 +1,75 @@
+단순히 '크기를 기준으로 세는' 알고리즘
+'범위조건'이 있는 경우에 한하여 빠른 알고리즘 -> O(N)
+
+Q)
+다음 5이하 자연수 데이터를 오름차순 정렬 하세요
+1,3,2,4,3,2,5,3,1,2,3,4,4,3,5,1,2,3,5,2,3,1,4,3,5,1,2,1,1,1
+
+1. 배열을 만듦 : 5이하 자연수데이터라 하였으니 크기가 6인 배열을 만든다
+2. 각 배열에 해당되는 크기에 맞춰 데이터를 넣고 출력한다.
+
+#include <stdio.h>
+
+int main(void){
+  int temp;
+  int count[6];
+  int array[30] = {1,3,2,4,3,2,5,3,1,2,3,4,4,3,5,1,2,3,5,2,3,1,4,3,5,1,2,1,1,1};
+  
+  for(int i=0; i<count.length; i++){
+    count[i] = 0; //초기화
+  }
+  for(int i=0; i<array.length; i++){
+    count[ array[i] ]++;
+  }
+  
+  for(int i=1; i<=5 ; i++){
+    if(count[i] != 0){
+      for(int j=0; j<count[i]; j++){
+        printf("%d", i);
+      }
+  }
+    return 0;
+  }
+
+
+자바코드)
+
+
+package nadongbin;
+
+import java.util.Arrays;
+
+public class Gesuju {
+	public static void main(String[]args) {
+		int temp;
+		int[] count = new int[6];
+		int[] array = {1,3,2,4,3,2,5,3,1,2,3,4,4,3,5,1,2,3,5,2,3,1,4,3,5,1,2,1,1,1};
+					   
+					   
+		
+		for(int i=0; i<count.length; i++) {
+			count[i] = 0;
+		}
+		
+		for(int i=0; i<array.length; i++) {
+			count[ array[i] ]++;
+		}
+		
+		for(int i=1; i<=5; i++) {
+			if(count[i] != 0) {
+				for(int j=0; j<count[i]; j++) {
+					System.out.print(count[i]);
+				}
+			}
+		}
+    System.out.println(" ");
+		System.out.print(Arrays.toString(count));
+	}
+}
+
+[콘솔창]
+888888886666668888888844444444 
+[0, 8, 6, 8, 4, 4]
+
+**계수정렬(counting sort)의 시간복잡도는 O(N)이다.
+
