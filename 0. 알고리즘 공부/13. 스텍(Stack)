@@ -1,0 +1,140 @@
+스텍 : 쌓다, 더미. 선입 선출, 한쪽 끝에서만 자료를 넣고 뺄 수 있는 자료구조
+
+Stack<Element> stack = new Stack<>();
+
+Stack 클래스
+public Element push(Element item); //데이터 추가
+public Element pop(); //(최근추가된 : TOP)데이터 삭제
+public Element peek(); //(최근추가된 : TOP)데이터 조회
+public boolean empty(); // stack의 값이 비었는지 확인, 비었으면 true, 아니면 false
+public int search(Object o); //인자값으로 받은 데이터의 '순번을' 반환
+
+Stack<Integer> stack = new Stack<>();
+for(int i=0; i<5; i++){
+  stack.push(i+1);
+  System.out.println(stack.peek());
+} // stack안 1,2,3,4,5
+
+stack.pop();// stack안 1,2,3,4
+System.out.println(stack.peek() ); // 4
+System.out.println(stack.search(1) ); //4
+// stack.search(1) : 인덱스반환이 아닌 순번 반환
+   search의 인자값으로 받은 값이 스택 구조에서 몇번째에 있는지?
+   현재 스텍안엔 1,2,3,4가 있고, 1부터 차곡차곡 위로 쌓인 상태
+   위에서부터 세었을때 데이터 1은 4번째 순번에 있으므로 4반환.
+System.out.println(stack.empty() ); //false 비지 않았어용
+
+Stack구현 
+1. 배열로 만들기
+2. LinkedList로 만들기 
+
+배열로 구현>>
+
+public class UserArrayStack {
+  int top;
+  int [] stack;
+  int size;
+  
+  public UserArrayStack(int size){
+    this.size = size;
+    stack = new int[size];
+    top =-1; //top값 초기화 -> 배열은 0번째부터 값이 들어가므로
+    
+  }
+  
+  private void push(int item){//데이터 추가
+    stack[++top] = item; // 초기화한 top의값 -1에 ++를 함으로써 0번째 값으로 item이 들어감.
+    System.out.println(stack[top] + "push!");
+  }
+  
+  private void peek(){//데이터 선택
+    System.out.println(stack[top] + "peek!");
+  }
+  
+  private void pop(){//데이터 지우기
+   System.out.println(stack[top] + "pop!");
+   stack[top--] = 0; //데이터를 지워서 없어졌으므로 그 자리는 0이 대체
+  }
+  
+  private int search(int item){//인자값으로 받은 값이 스텍 구조에서 몇번째에 위치하나 확인
+    for(int i=0; i<= top; i++){
+      if(stack[i] == item){
+        return (top-i) +1; //위에서 부터 셋을때의 차례.
+      }
+      return -1;
+    }
+  }//search end
+  
+  private boolean empty(){
+    return size == 0;
+  }
+}
+
+
+LinkedList로 구현>>
+
+**Node 만들기(데이터 + 다음 노드를 가리키는 주소)
+
+public class Node{
+  private int data;
+  private Node nextNode();
+  
+  public Node(int data){
+    this.data = data;
+    this.nextNode = null;
+  }
+  
+  protected void linkNode(Node node){
+    this.nextNode = node;
+  }
+  
+  protected int getData(){
+    return this.data;
+  }
+  protected Node getNextNode(){
+    return this.nextNode;
+  }
+}//Node class end
+
+public class UserLinkedListStack{
+  Node top;
+  
+  public UserLinkedListStack(){
+    this.top = null;
+  }
+  
+  private void push(int data){
+    Node node= new Node(data); //새 노드 만들기
+    node.linkNode(top); // 이전에 있던 노드(top)와 연결
+    top = node; //새로운 노드가 앞에 있어야하므로 새로운 노드를 TOP로 명시 
+  }
+  
+  public int peek(){
+    return top.getDate();
+  }
+  
+  private void pop(){
+    if(empty()) throws new ArrayIndexOutOfBoundsException(); //노드가 아무것도 없을때의 에러를 막음
+    else {top = top.getNextNode();}  // pop은 지우는 것으로, top와 연결된 노드(top아래에 있는 노드)로 top를 재선언.
+  }
+  private int search(int item){
+    Node searchNode = top;
+    int index =1;
+    while(true){
+      if(searchNode.getData() == item){
+        return index;
+      }else {
+        searchNode = searchNode.getNextNode();
+        index ++;
+        if(searchNode == null) break;
+      }
+    }
+    return -1;
+  }
+  private boolean empty(){
+    return top = null;
+  }
+}
+
+-> 배열 : 장)구현이 쉽고 데이터의 접근속도(조회)가 빠름. 단)항상 최대 갯수를 정해놔야 사용이 가능 --> 구현,접근은 좋으나 타프로젝트에서 활용할때는 불편
+-->링크드 리스트  : 장)데이터의 최대갯수가 한정되어있지 않고 삽입삭제가 용이함. 단) 데이터의 조회가 힘듦(노드를 일일히 따라가서 조회를 해야 데이터를 찾을 수 있으므로)
