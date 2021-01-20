@@ -121,6 +121,13 @@ A910
 풀이)
 
 
+1.s1.length > s2.length일때 : 음수반환
+2.s1.length = s2.length일때 : 길이가 같을때
+  2-1) add.(s1) = add(s2) : 자리수 합이 같을때
+  2-2) add.(s1) != add(s2) : 자리수 합이 다를떄
+3.s1.length < s2.length일때 : 양수반환
+
+
 import java.io.*;
 import java.util.*;
 
@@ -139,7 +146,7 @@ class Main{
             if(s1.length() < s2.length()){
               return -1; // 객체자리 유지
             }else if(s1.length() == s2.length()){
-              if(add(s1) == add(s2)){ //같을경우엔 사전순으로 
+              if(add(s1) == add(s2)){ //자리수 합이 같을경우엔 사전순으로 
                 return s1.compareTo(s2); // 2개의 문자열을 비교 후 int형 값을 리턴하는 메서드
               }
               else{
@@ -147,7 +154,7 @@ class Main{
               }
             }
             else { //s1.length() > s2.length() 일때
-              return -1;
+              return +1;
             }
           }
         });
