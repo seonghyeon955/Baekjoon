@@ -74,88 +74,71 @@ int dy[4] = {-1,0,1,0}
 
 풀이)
 
+import java.io.*;
 import java.util.*;
 
 public class Main{
-  static int map[][];
-  static int visit[][];
-  static int dx[] = {0,0,-1,1};//상하좌우
-  static int dy[] = {-1,1,0,0};
-  static int N;
-  
-  public static void main(String[]args){
-    Scanner sc = new Scanner(System.in);
-    N = sc.nextInt();
-    
-    map = new int[N+1][N+1];
-    visit = new int[N+1][N+1];
-    
-    for(int i=0; i<N; i++){//map배열의 행,열을 Scanner을 통해 받은 값으로 채운다.
-      String input = sc.next();
-      for(int j=0; j<input.length(); j++){//열
-        map[i][j] = input.charAt(j)-48;
-      }
-    }
-  bfs();
-  }
-  
-}
- public static void bfs(){
-  Queue<Integer> qx = new LinkedList<Integer>();
-  Queue<Integer> qy = new LinkedList<Integer>();
-  ArrayList<Integer> arr = new ArrayList<Integer>();
-  
-  for(int ti=0; ti<Nl ti++){
-    int x, y;// 현재위치
-    int tx,ty; // 상,하,좌,우
-    int hCnt; //단지내 집의 갯수
-    
-    for(int tj=0; tj<N; tj++){
-      hCnt=1;
-      if(map[ti][tj] == 1){
-        x =ti;
-        y =tj;
-        qx.add(x);
-        qx.add(y);
-        visit[x][y] = 1; //방문 표시
-        
-        while( !qx.isEmpty() && !qy.isEmpty() ){
-          x = qx.poll();
-          y = qy.poll();
-          for(int i=0; i<=3; i++){
-            tx = x+dx[i];
-            ty = y+dy[i];//현재위치 기준 상하좌우의 위치가 집이 맞는지 체크
-            if(tx>=0 && ty>=0 && tx< N && ty <N){
-              if(map[tx][ty] == 1 && visit[tx][ty] == 0){
-                hCnt++;
-                map[tx][ty] = 0;
-                qx.add(tx);
-                qy.add(ty);
+       static int[][] map = new int[26][26]; //범위가 5≤N≤25이므로. 맨앞의 0은 사용하지 않으므로 +1씩 더해준다.
+       private static int[] addRow = {-1,0,1,0};
+       private static int[] addCol = {-0,1,0,-1};
+       stati int n;
+       staic int count=2;
+       static LikedList<Integer> scale = new LinkedList<>(); //단지에 속하는 위치의 갯수저장
+       static Queue<String> q = new LinksedList<>(); //위치값 1에 해당되는 좌표저장
+       
+       public static void main(String[]args) throws IOException{
+           BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+           BufferedWriter bw = new BufferedWriter(new OutputStreamReader(System.out));
+           String input;
+           
+           n = Integer.parseInt(br.readLine());
+           
+           for(int i=1; i<=n ;i++){
+              input = br.readLine();
+              for(int j=0; j<=n; j++){
+                 map[i][j+1] = input.charAt(j) -'0';
               }
-              visit[tx][ty] = 1;
-            }
-            
-          }//for end
-       }//while end
-       arr.add(hCnt);
-    }//if end
-   }
-  }
- }
-  Collections.sort(arr); //오름차순 정렬
- }          
- Iterator<Integer> itr = arr.iterator();
- System.out.println(arr.size());//단지 수
- while(itr.hasNext()){
-  System.out.println(itr.next());//단지 내 집의 수
- }        
- }      
- }  
- 
-
-
-
-
+           }//각 배열에 br로 받은 값 채우기
+           
+           for(int i=1; i<=n ; i++){
+              for(int j=1; j<=n ; j++){
+                  if(map[i][j] == 1){//1인 위치인 경우
+                      scale.add(1);//1인 위치를 하나 찾았고 그 위치값을 count값인 2로(처음 단지를 찾았을때)바꿔줄 것인데 단지에 속하는 위치 1개를 찾았기 때문에 그 수를 의미함. 
+                      map[i][j] = count; //위치값을 count값인 2로(처음 단지를 찾았을때)바꿔줌.
+                      q.add(i + ";" + j);// q에 좌표를 넣기 위함. ';'를 구분자로 보고 앞뒤를 row,col로 구분할 수 있음.
+                      bfs();
+                      count++;
+                  }
+              }
+           }
+           scale.sort(null);
+           System.out.println(scale.size());
+           for(int i=0; i<scale.size(); i++){
+              System.out.println(scale.get(i));
+           }
+          
+       }
+       public static void bfs(){
+           while(!q.isEmpty()){
+                      String tmp = q.poll();
+                      int row = Integer.parseInt(tmp.split(";"[0]));
+                      int col = Integer.parseInt(tmp.split(";"[1]));
+                      for(int i=0; i<4 ; i++){
+                         int row1 = row + addRow[i];
+                         int col1 = col + addCol[i];
+                         if(row1<0 || row1>n || col1<0 || col1>n){
+                             continue;
+                         }
+                         if(map[row1][col1] == 1){
+                            map[row1][col1] = count;
+                            q.add(row1 + ";" + col1);
+                            scale.set(scale.size() -1 , scale.get(scale.size() -1) +1);
+                         }
+                      }
+                   }
+       
+       }
+}
 
 
 
