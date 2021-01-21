@@ -1,0 +1,110 @@
+-그래프의 대표적인 두 개의 탐색(너비 우선, 깊이우선 탐색)
+-시간 복잡도 : O(V+E)
+-탐색을 할때 '너비'를 우선으로 하여 탐색을 수행하는 탐색 알고리즘
+-현 위치에 인접한 모든 위치의 노드를 방문 후 그 이웃 노드들의 또 다른 노드들을 방문하는 것을 다음에 진행
+-최단 경로를 찾아준다는 점에서 최단 길이를 보장해야 할때 많이 이용
+-큐(Queue) 이용하여 순환적 형태로 구현
+
+1. 시작노드를 큐에 삽입 후 방문처리를 해줌
+2. 큐에서 하나의 노드를 꺼냄
+3. 해당 노드에 연결된 노드 중 방문하지 않은 노드를 방문후, 차례대로 큐에 삽입.
+4. 2와 3 반복
+
+문제 - 미로탐색(https://www.acmicpc.net/problem/2178)
+N×M크기의 배열로 표현되는 미로가 있다.
+
+1	0	1	1	1	1
+1	0	1	0	1	0
+1	0	1	0	1	1
+1	1	1	0	1	1
+
+미로에서 1은 이동할 수 있는 칸을 나타내고, 0은 이동할 수 없는 칸을 나타낸다. 이러한 미로가 주어졌을 때, (1, 1)에서 출발하여 (N, M)의 위치로 이동할 때 지나야 하는 최소의 칸 수를 구하는 프로그램을 작성하시오. 
+한 칸에서 다른 칸으로 이동할 때, 서로 인접한 칸으로만 이동할 수 있다.
+위의 예에서는 15칸을 지나야 (N, M)의 위치로 이동할 수 있다. 칸을 셀 때에는 시작 위치와 도착 위치도 포함한다.
+
+입력
+첫째 줄에 두 정수 N, M(2 ≤ N, M ≤ 100)이 주어진다. 다음 N개의 줄에는 M개의 정수로 미로가 주어진다. 각각의 수들은 붙어서 입력으로 주어진다.
+
+출력
+첫째 줄에 지나야 하는 최소의 칸 수를 출력한다. 항상 도착위치로 이동할 수 있는 경우만 입력으로 주어진다.
+
+예제 입력 1) 
+4 6
+101111
+101010
+101011
+111011
+
+예제 출력 1)
+15
+
+풀이)
+1. 다음 방문할 점을 큐에 넣는다.
+2. 큐에서 빼온다음 다음 갈곳이 조건에 벗어나지 않는 경우 큐에 넣는다
+3. 큐가 빌때까지 반복한다
+
+import java.util.*;
+import java.io.*;
+
+
+public class main{
+  staic int[][] arr;
+  staic int[][] maze; //미로
+  static boolean[][] visited;//방문여부
+  static int[] dx = {-0,1,0,-1}; //상우하좌
+  static int[] dy = {1,0,-1,0};
+  static int n,m; //행, 열
+  
+  public staic void bfs(){
+    Queue<Integer> queue_x = new LinkedList<Integer>(); //x값에 대한 Queue
+    Queue<Integer> queue_y= new LinkedList<Integer>(); //y값에 대한 Queue
+    
+    queue_x.offer(0);
+    queue_y.offer(0); //0으로 초기화
+    
+    checked[0][0] = true;
+    
+    while(!queue_x.isEmpty()){
+      int x = queue_x.poll();
+      int y = queue_y.poll();
+      
+      for(int k=0; k<4; k++){
+        //상하좌우 확인
+        int temp_x = x+dx[k];
+        int temp_y = y+dy[k];
+        
+        if(temp_x >=0 && temp_y>= 0 && temp_x <n && temp_y <m )/{ /유효범위인지 확인
+          if(maze[temp_x][temp_y] == 1 && checked[temp_x][temp_y] == false){
+            queue_x.offer(temp_x);
+            queue_y.offer(temp_y);
+            
+            checked[temp_x][temp_y] = true;
+            
+            maze[temp_x][temp_y] = maze[x][y] +1;//이동횟수 
+          }
+        }
+        
+      }
+    }
+  }
+
+  public staic void main(String[]args)throws IOException{
+    Scanner sc = new Scanner(System.in);
+    n = sc.nextInt();//줄(행)
+    m = sc.nextInt();//열
+    maze= new int[n][m];
+    checked = new boolean[n][m];
+    
+    for(int i=0; i<n; i++){
+      String temp = sc.next(); // 붙어서 입력되기 때문에 다음 공백까지 받아오는 .next()를 사용
+      for(int j=0; j<m j++){
+        maze[i][j] = (int)temp.charAt(j) -48; //아스키코드값 반환
+      }
+    }
+    bfs();
+    System.out.print(maze[n-1][m-1]); // (n,m)출력, 좌표값이기 때문에 각각 -1을 해줌.
+  }
+
+}
+
+   
