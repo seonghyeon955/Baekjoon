@@ -110,7 +110,7 @@ public class UserLinkedListStack{
   }
   
   public int peek(){
-    return top.getDate();
+    return top.getData();
   }
   
   private void pop(){
